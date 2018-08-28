@@ -1,0 +1,71 @@
+<! DOCTYPE html>
+<html>
+  
+<head>
+    <meta charset="utf-8">
+    <title>Vue示例</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component :init-count="1" ></my-component>
+        <my-component1 :width="100"></my-component1>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        Vue.component('my-component',{
+            template:'<div>{{count}}</div>',
+            props:['initCount'],
+            data:function(){
+                return {
+                    count:this.initCount
+                }
+            }
+        })
+        Vue.component('my-component1',{
+            template:'<div :style="style"></div>',
+            computed:{
+                style:function(){
+                    return {
+                        width:this.width+"px"
+                    }
+                }
+            },
+            props:['width']
+        })
+        Vue.component('valid-component',{
+            props:{
+                propA:Number,//必须是数字类型
+                propB:[String,Number],//必须是字符串或者数字类型
+                proC:{//布尔值，如果没有定义，默认值就是true
+                    type:boolean,
+                    default:false
+                },
+                propD:{//数字，而且是必传
+                    type:Number,
+                    required:true
+                },
+                propE:{//如果是数组或者对象，默认值必须是一个函数来返回
+                    type:Array,
+                    default:function(){
+                        return []
+                    }
+                },
+                propF:{//验证函数可以自定义
+                    validator:function(value){
+                        return value>10
+                    }
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',//可以是HTMLElement，也可以是CSS选择器
+            //声明应用内需要双向绑定的数据。
+            //建议所有会用到的数据都预先在data内声明，
+            //这样不至于将数据散落在业务逻辑中，难以维护。
+            data: { 
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<! DOCTYPE html>
+<html>
+  
+<head>
+    <meta charset="utf-8">
+    <title>Vue示例</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-component1></my-component1>
+        <my-component2></my-component2>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        Vue.component('my-component1',{
+            template:'<div>{{message}}</div>',
+            data:function(){
+                return {
+                    message:'这里是组件1内容1'
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app',//可以是HTMLElement，也可以是CSS选择器
+            //声明应用内需要双向绑定的数据。
+            //建议所有会用到的数据都预先在data内声明，
+            //这样不至于将数据散落在业务逻辑中，难以维护。
+            data: { 
+            },
+            components:{
+                'my-component2':{
+                    template:'<div>这里是组件2内容</div>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

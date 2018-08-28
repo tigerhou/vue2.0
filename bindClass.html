@@ -1,0 +1,54 @@
+<! DOCTYPE html>
+<html>
+  
+<head>
+    <meta charset="utf-8">
+    <title>Vue示例</title>
+</head>
+
+<body>
+    <div id="app">
+        <div :class="{'active':isActive}"></div>
+        <div class="static" :class="{'active':isActive,'error':isError}"></div>
+        <div :class="classes"></div>
+        <div :class="[activeCls,errorCls]"></div>
+        <div :class="[{'active':isActive},errorCls]"></div>
+        <div :class="classes1"></div>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',//可以是HTMLElement，也可以是CSS选择器
+            //声明应用内需要双向绑定的数据。
+            //建议所有会用到的数据都预先在data内声明，
+            //这样不至于将数据散落在业务逻辑中，难以维护。
+            data: { 
+                isActive:true,
+                isError:false,
+                error:false,
+                activeCls:'active',
+                errorCls:'error',
+                size:16,
+                disabled:true
+            },
+            computed:{
+                classes:function(){
+                    return {
+                        active:this.isActive && !this.error,
+                        'text-fail':this.error && this.error.type==='fail'
+                    }
+                },
+                classes1:function(){
+                    return [
+                        'btn',
+                        {
+                        ['btn-'+this.size] : this.size !== '',
+                        'btn-disabled':this.disabled
+                        }
+                    ]
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<! DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue示例</title>
+</head>
+
+<body>
+    <div id="app">
+        <textarea v-model.lazy="text" placeholder="请输入"></textarea>
+        <p>输入的内容是：</p>
+        <p style="white-space: pre">{{text}}</p>
+        <div class="demo_line_01">单选</div>
+        <input type="radio" v-model="picked" value="js" id="js">
+        <label>Javascript</label>
+        <br>
+        <input type="radio" v-model="picked" value="css" id="css">
+        <label>CSS</label>
+        <br>
+        <input type="radio" v-model="picked" value="html" id="html">
+        <label>HTML</label>
+        <p>你的选择是：{{picked}} </p>
+        <div class="demo_line_01">多个选项的多选</div>
+        <input type="checkbox" v-model="checked" value="js" id="js">
+        <label>Javascript</label>
+        <br>
+        <input type="checkbox" v-model="checked" value="css" id="css">
+        <label>CSS</label>
+        <br>
+        <input type="checkbox" v-model="checked" value="html" id="html">
+        <label>HTML</label>
+        <p>你的选择是：{{checked}} </p>
+
+        <div class="demo_line_01">单个选项的多选</div>
+        <input type="checkbox" v-model="checked1" value="checked" id="checked">
+        <label>请选择</label>
+        <p>结果是:{{checkOrNo}}</p>
+        <div class="demo_line_01">下拉单选</div>
+        <select v-model="selected" multiple>
+            <option>html</option>
+            <option value="js">Javascript</option>
+            <option>css</option>
+        </select>
+        <p>你的选择是：{{selected}}</p>
+        <div class="demo_line_01">单个选项的多选只绑定value值</div>
+        <input type="checkbox" v-model="checked2" :true-value="value1" :false-value="value2" id="checked2">
+        <label>请选择</label>
+        <p>结果是:{{checked2}}</p>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app', //可以是HTMLElement，也可以是CSS选择器
+            //声明应用内需要双向绑定的数据。
+            //建议所有会用到的数据都预先在data内声明，
+            //这样不至于将数据散落在业务逻辑中，难以维护。
+            data: {
+                text: '',
+                picked: 'css',
+                checked: ['js', 'html'],
+                checked1: true,
+                selected:['js'],
+                checked2:false,
+                value1:'trueValue',
+                value2:'falseValue'
+
+            },
+            computed: {
+                checkOrNo: function () {
+                    if (this.checked1) {
+                        return '选中'
+                    } else {
+                        return '未选中'
+                    }
+
+                }
+            }
+        })
+    </script>
+    <style>
+        .demo_line_01 {
+            padding: 0 20px 0;
+            margin: 20px 0;
+            line-height: 1px;
+            border-left: 100px solid #ddd;
+            border-right: 100px solid #ddd;
+            text-align: center;
+        }
+        #app{
+            width:500px;
+        }
+    </style>
+</body>
+
+</html>
